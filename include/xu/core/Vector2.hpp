@@ -149,47 +149,51 @@ template <typename T> struct Vector2 {
     auto temp = *this;
     return temp /= rhs;
   }
-
+  
   // Vector|Scalar arithmetic operators (defined in terms of += and friends)
 
-  constexpr Vector2<T> operator+(T sclr) const {
+  Vector2<T> operator+(T sclr) const {
     auto temp = *this;
     return temp += sclr;
   }
 
-  constexpr Vector2<T> operator-(T sclr) const {
+  Vector2<T> operator-(T sclr) const {
     auto temp = *this;
     return temp -= sclr;
   }
 
-  constexpr Vector2<T> operator*(T sclr) const {
+  Vector2<T> operator*(T sclr) const {
     auto temp = *this;
     return temp *= sclr;
   }
 
-  constexpr Vector2<T> operator/(T sclr) const {
+  Vector2<T> operator/(T sclr) const {
     auto temp = *this;
     return temp /= sclr;
   }
 
-  // Friend Vector|Scalar arithmetic operators (so once can do, say 2 +
-  // Vector2<int>(3, 4) == Vector2<int>(5, 6))
-
-  constexpr friend Vector2<T> operator+(T sclr, const Vector2<T> &rhs) {
+  // Friend Vector|Scalar arithmetic operators (so once can do, say 2 + Vector2<int>(3, 4) == Vector2<int>(5, 6))
+  friend Vector2<T> operator+(T sclr, const Vector2<T>& rhs) {
     return rhs + sclr;
   }
 
-  constexpr friend Vector2<T> operator-(T sclr, const Vector2<T> &rhs) {
+  friend Vector2<T> operator-(T sclr, const Vector2<T>& rhs) {
     return rhs - sclr;
   }
 
-  constexpr friend Vector2<T> operator*(T sclr, const Vector2<T> &rhs) {
+  friend Vector2<T> operator*(T sclr, const Vector2<T>& rhs) {
     return rhs * sclr;
   }
 
-  constexpr friend Vector2<T> operator/(T sclr, const Vector2<T> &rhs) {
+  friend Vector2<T> operator/(T sclr, const Vector2<T>& rhs) {
     return rhs / sclr;
   }
+
+  // Comparison operators
+  constexpr bool operator<(const Vector2<T>& rhs) const { return x < rhs.x && y < rhs.y; }
+  constexpr bool operator>(const Vector2<T>& rhs) const { return x > rhs.x && y > rhs.y; }
+  constexpr bool operator<=(const Vector2<T>& rhs) const { return *this == rhs || *this < rhs; }
+  constexpr bool operator>=(const Vector2<T>& rhs) const { return *this == rhs || *this > rhs; }
 };
 
 using IVector2 = Vector2<int>;
